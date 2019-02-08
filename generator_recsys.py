@@ -73,6 +73,8 @@ class NextItNet_Decoder:
         probs_flat = tf.nn.softmax(logits_2D)
         # self.g_probs = tf.reshape(probs_flat, [-1, tf.shape(self.input_predict)[1], model_para['item_size']])
         self.g_probs = tf.reshape(probs_flat, [-1, tf.shape(label_seq)[1], model_para['item_size']])
+        # you can also use the below api for top-k, which is done in GPU, much faster.
+        self.top_k= tf.nn.top_k(self.g_probs[:,-1], k=5)
 
 
 
